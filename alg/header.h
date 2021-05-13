@@ -14,8 +14,8 @@ void rr(int **a, int **b);
 void rra(int **a);
 void rrr(int **a, int **b);
 int getmed(int *a);
-int getmax(int *a);
+int getmax(int *a, int regime);
 int countitems(int *a);
 void printmas(int *a);
-
+void	*ft_memmove(void *to, void *from, size_t len);
 #endif

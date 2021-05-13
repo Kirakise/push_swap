@@ -39,16 +39,21 @@ int getmed(int *a)
     return (tmp3);
 }
 
-int getmax(int *a)
+int getmax(int *a, int regime)
 {
     int i;
     int ret;
 
     i = 0;
-    ret = -200000000;
+    if (regime == 1)
+        ret = -200000000;
+    else if (regime == -1)
+        ret = 200000000;
     while (a[i])
     {
-        if (a[i] > ret)
+        if (regime == 1 && a[i] > ret)
+            ret = a[i];
+        else if (regime == -1 && a[i] < ret)
             ret = a[i];
         i++;
     }

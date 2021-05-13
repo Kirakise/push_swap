@@ -1,48 +1,123 @@
 #include "header.h"
 
-void sortmas2(int **a, int **b)
+int *getsortmas(int *a, int count)
 {
-    int count;
-    int max;
+    int *ret;
+    int i;
+    int j;
+    int tmp;
 
-    while (**b)
+    ret = ft_calloc(count, sizeof(int));
+    ft_memmove(ret, a, count);
+    i = 0;
+    while (ret[i])
     {
-        max = getmax(*b);
-        while (**b != max && write(1, "rb\n", 3))
+        j = i + 1;
+        while (ret[j])
         {
-            ra(b);
-            count++;
+            if (ret[i] > ret[j])
+            {
+                tmp = ret[i];
+                ret[i] = ret[j];
+                ret[j] = tmp;
+            }
+            j++;
         }
-        write(1, "pa\n", 3);
-        pa(b, a);
-        while (count-- && write(1, "rrb\n", 4))
-            rra(b);
-        count = 0;
+        i++;
     }
+    return (ret);
 }
 
-void sortmas(int **a, int **b)
+int ft_abs(int a)
 {
-    int i;
-    int med;
-    int items;
+    if (a > 0)
+        return (a);
+    else
+        return (-a);
+}
 
-    i = 0;
-    while (countitems(*a) > 2)
+int checkcluster(int *a, int *sorted, int i, int j)
+{
+    int i1;
+    int first;
+    int last;
+
+    i1 = 0;
+    first = -1;
+    while(a[i1])
     {
-        items = countitems(*a);
-        med = getmed(*a);
-        while (items--)
+        if (a[i1] >= sorted[i] && a[i1] <= sorted[j])
         {
-            if (**a < med && write(1, "pb\n", 3))
-                pa(a, b);
-            else if (write(1, "ra\n", 3))
-                ra(a);
+            first = i1;
+            break;
+        }
+        i++;
+    }
+    i1 = countitems(a);
+    while (--i1 && a[i1])
+    {
+        if (a[i1] >= sorted[i] && a[i1] <= sorted[j])
+        {
+            last = i1;
+            break;
         }
     }
-    if (countitems(*a) == 2 && **a > (*a)[1] && write(1, "sa\n", 3))
-        sa(a);
-    sortmas2(a, b);
+    if (first == -1 || ft_abs(countitems(a)/2 - first) < ft_abs(countitems(a)/2 - last))
+        return (first);
+    return (last);
+}
+
+void pushtob(int **a, int **b)
+{
+    int i;
+    int tmp;
+    int res;
+    
+    i = 0;
+    tmp = 100000000;
+    res = 0;
+    while (*b[i])
+    {
+        if (ft_abs((*b)[i] - **a) < tmp)
+        {
+            tmp = ft_abs((*b)[i] - **a);
+            res = i;
+        }
+        i++;
+    }
+    if (countitems(*b) / 2 - res > 0)
+        while (res--)
+            ra(b);
+    else
+        while (res++ < countitems(*b))
+            rra(b);
+    pa(a, b);
+}
+
+void sortmas(int **a, int **b, int *sorted, int clusters)
+{
+        int tmp;
+        int count;
+        int i;
+
+        count = countitems(*a) /clusters;
+        i = -1;
+        while (++i < clusters)
+        {
+            while(checkcluster(*a, sorted, 0 + count * i, count * i - 1) != -1)
+            {
+                tmp = checkcluster(*a, sorted, 0 + count * i, count * i - 1) != -1;
+                if (countitems(*a) / 2 - tmp > 0)
+                    while (tmp--)
+                        ra(a);
+                else
+                    while (tmp++ < countitems(*a))
+                        rra(a);
+                pushtob(a, b);
+            }
+        }
+        while (**b)
+            pa(b, a);
 }
 
 int checkinput(char **s)
@@ -116,8 +191,11 @@ int main(int argc, char **argv)
         printf("Error\n");
         exit(0);
     }
-    sortmas(&a, &b);
-    //printmas(a);
+    if (argc - 1 <= 100)
+        sortmas(&a, &b, getsortmas(a, argc), 5);
+    else
+        sortmas(&a, &b, getsortmas(a, argc), 11);
+    printmas(a);
     free(a);
     free(b);
 }
