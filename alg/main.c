@@ -8,7 +8,7 @@ int *getsortmas(int *a, int count)
     int tmp;
 
     ret = ft_calloc(count, sizeof(int));
-    ft_memmove(ret, a, count);
+    ft_memmove(ret, a, count * sizeof(int));
     i = 0;
     while (ret[i])
     {
@@ -42,19 +42,18 @@ int checkcluster(int *a, int *sorted, int i, int j)
     int first;
     int last;
 
-    i1 = 0;
+    i1 = -1;
     first = -1;
-    while(a[i1])
+    while(a[++i1])
     {
         if (a[i1] >= sorted[i] && a[i1] <= sorted[j])
         {
             first = i1;
             break;
         }
-        i++;
     }
     i1 = countitems(a);
-    while (--i1 && a[i1])
+    while (a[--i1])
     {
         if (a[i1] >= sorted[i] && a[i1] <= sorted[j])
         {
@@ -62,7 +61,7 @@ int checkcluster(int *a, int *sorted, int i, int j)
             break;
         }
     }
-    if (first == -1 || ft_abs(countitems(a)/2 - first) < ft_abs(countitems(a)/2 - last))
+    if (first == -1 || ft_abs(countitems(a)/2 - first) <= ft_abs(countitems(a)/2 - last))
         return (first);
     return (last);
 }
@@ -70,29 +69,50 @@ int checkcluster(int *a, int *sorted, int i, int j)
 void pushtob(int **a, int **b)
 {
     int i;
-    int tmp;
-    int res;
     
     i = 0;
-    tmp = 100000000;
-    res = 0;
-    while (*b[i])
+    if (**a == getmax(*b, 1))
     {
-        if (ft_abs((*b)[i] - **a) < tmp)
-        {
-            tmp = ft_abs((*b)[i] - **a);
-            res = i;
-        }
-        i++;
+        while ((*b)[i] != getmax(*b, -1))
+            i++;
+        if (countitems(*b) / 2 - i > 0)
+            while (i-- && write(1, "rb\n", 3))
+                ra(b);
+            else while (i++ < countitems(*b) && write(1, "rrb\n", 4))
+                rra(b);
     }
-    if (countitems(*b) / 2 - res > 0)
-        while (res--)
-            ra(b);
-    else
-        while (res++ < countitems(*b))
-            rra(b);
+    else if (**a == getmax(*b, -1))
+    {
+        while ((*b)[i] != getmax(*b, 1))
+            i++;
+        if (countitems(*b) / 2 - i > 0)
+            while (i-- && write(1, "rb\n", 3))
+                ra(b);
+            else while (i++ < countitems(*b) && write(1, "rrb\n", 4))
+                rra(b);
+    }
+    write(1, "pb\n", 3);
     pa(a, b);
 }
+
+void correct(int **b)
+{
+    int i;
+    int tmp;
+
+    tmp = getmax(*b, 1);
+    i = 0;
+    while ((*b)[i] != tmp)
+        i++;
+    if (countitems(*b) / 2 - i > 0)
+        while(i++ < countitems(*b) && write(1, "rrb\n", 4))
+            rra(b);
+    else
+        while(i-- && write(1, "rb\n", 4))
+            ra(b);
+}
+void foo()
+{}
 
 void sortmas(int **a, int **b, int *sorted, int clusters)
 {
@@ -104,20 +124,25 @@ void sortmas(int **a, int **b, int *sorted, int clusters)
         i = -1;
         while (++i < clusters)
         {
-            while(checkcluster(*a, sorted, 0 + count * i, count * i - 1) != -1)
+            while(checkcluster(*a, sorted, count * i, count * (i + 1) - 1) != -1)
             {
-                tmp = checkcluster(*a, sorted, 0 + count * i, count * i - 1) != -1;
+                tmp = checkcluster(*a, sorted, count * i, count * (i + 1) - 1);
                 if (countitems(*a) / 2 - tmp > 0)
-                    while (tmp--)
+                    while (tmp-- && write(1, "ra\n", 3))
                         ra(a);
                 else
-                    while (tmp++ < countitems(*a))
+                    while (tmp++ < countitems(*a) && write(1, "rra\n", 4))
                         rra(a);
                 pushtob(a, b);
             }
         }
+        foo();
         while (**b)
+        {
+            correct(b);
+            write(1, "pa\n", 3);
             pa(b, a);
+        }
 }
 
 int checkinput(char **s)
@@ -195,7 +220,7 @@ int main(int argc, char **argv)
         sortmas(&a, &b, getsortmas(a, argc), 5);
     else
         sortmas(&a, &b, getsortmas(a, argc), 11);
-    printmas(a);
+    //printmas(a);
     free(a);
     free(b);
 }
