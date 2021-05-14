@@ -34,7 +34,10 @@ int getmed(int *a)
         }
         i++;
     }
-    tmp3 = tmp2[i / 2];
+    if (countitems(tmp2) > 13)
+        tmp3 = tmp2[12];
+    else
+        tmp3 = tmp2[i - 1];
     free(tmp2);
     return (tmp3);
 }

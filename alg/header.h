@@ -17,5 +17,10 @@ int getmed(int *a);
 int getmax(int *a);
 int countitems(int *a);
 void printmas(int *a);
-
+char			**ft_split(char const *str, char c);
+int isnum(char *s);
+void parse(int **a, int argc, char **argv);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+size_t		ft_strlen(const char *s);
+int checknums(int *a, int zeroflag);
 #endif

@@ -58,3 +58,39 @@ int checkifsorted(int **a)
     }
     return (1);
 }
+
+int isnum(char *s)
+{
+	int i;
+
+	i = 0;
+	if (s[i] == '-')
+		i++;
+	while (s[i])
+	{
+		if (s[i] < '0' || s[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char *ret;
+	char *tmp;
+
+	if (!s)
+		return (0);
+	ret = ft_calloc(len + 1, 1);
+	if (ret == 0)
+		return (0);
+	if (start >= ft_strlen(s))
+		return (ret);
+	tmp = ret;
+	s += start;
+	while (*s && len--)
+		*ret++ = *s++;
+	*ret = 0;
+	return (tmp);
+}

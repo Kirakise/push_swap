@@ -30,7 +30,7 @@ void sortmas(int **a, int **b)
     i = 0;
     while (countitems(*a) > 2)
     {
-        items = countitems(*a);
+        items = countitems(*a) - 1;
         med = getmed(*a);
         while (items--)
         {
@@ -66,56 +66,33 @@ int checkinput(char **s)
     return (0);
 }
 
-int checknums(int *a, int zeroflag)
+int countargs(char **argv)
 {
     int i;
-    int j;
+    char **s;
 
     i = 0;
-    while (a[i])
+    if (isnum(argv[1]))
+        while (argv[i])
+            i++;
+    else
     {
-        j = i + 1;
-        while (a[j])
-        {
-            if (a[i] == 1 && a[j] == 1 && zeroflag)
-            {
-                zeroflag = 0;
-                j++;
-            }
-            else if (a[i] == a[j])
-                return (1);
-            else
-                j++;
-        }
-        i++;
+        s = ft_split(argv[1], ' ');
+        while (s[i])
+            i++;
+        free(s);
     }
-    return (0);
+    return (i + 1);
 }
 
 int main(int argc, char **argv)
 {
     int *a;
     int *b;
-    int i;
-    int zeroflag;
 
-    a = ft_calloc(argc, sizeof(int));
-    b = ft_calloc(argc, sizeof(int));
-    i = 0;
-    while (++i < argc)
-    {
-        a[i - 1] = ft_atoi(argv[i]);
-        if (a[i - 1] == 0)
-        {
-            zeroflag = 1;
-            a[i - 1] = 1;
-        }
-    }
-    if (checkinput(argv) || checknums(a, zeroflag))
-    {
-        printf("Error\n");
-        exit(0);
-    }
+    a = ft_calloc(countargs(argv), sizeof(int));
+    b = ft_calloc(countargs(argv), sizeof(int));
+    parse(&a, argc, argv);
     sortmas(&a, &b);
     //printmas(a);
     free(a);
