@@ -1,6 +1,6 @@
 #include "header.h"
 
-void swap(int **a, int i, int j)
+void swap(long long **a, int i, int j)
 {
     int tmp;
 
@@ -9,15 +9,15 @@ void swap(int **a, int i, int j)
     (*a)[j] = tmp;
 }
 
-int getmed(int *a)
+int getmed(long long *a)
 {
     int i;
-    int *tmp2;
+    long long *tmp2;
     int tmp3;
     
     i = 0;
-    tmp2 = ft_calloc(countitems(a) + 1, sizeof(int));
-    while (a[i])
+    tmp2 = ft_calloc(countitems(a) + 1, sizeof(long long));
+    while (a[i] && a[i] <= 2147483647)
     {
         tmp2[i] = a[i];   
         i++;
@@ -34,31 +34,40 @@ int getmed(int *a)
         }
         i++;
     }
-    if (countitems(tmp2) > 13)
-        tmp3 = tmp2[12];
-    else
-        tmp3 = tmp2[i - 1];
+    tmp3 = tmp2[i / 2];
     free(tmp2);
     return (tmp3);
 }
 
-int getmax(int *a)
+int getmax(long long *a)
 {
     int i;
     int ret;
+    int flag;
 
     i = 0;
+    flag = 0;
     ret = -200000000;
     while (a[i])
     {
+        if (a[i] > 2147483647)
+        {
+            flag = 1;
+            a[i] -= RAZD;
+        }
         if (a[i] > ret)
             ret = a[i];
+        if (flag)
+        {
+            flag = 0;
+            a[i] += RAZD;
+        }
         i++;
     }
     return (ret);
 }
 
-int countitems(int *a)
+int countitems(long long *a)
 {
     int i;
     
@@ -68,11 +77,19 @@ int countitems(int *a)
     return (i);
 }
 
-void printmas(int *a)
+void printmas(long long *a)
 {
     int i;
+    int flag;
 
     i = 0;
+    flag = 0;
     while (a[i])
-        printf("%i\n", a[i++]);
+    {
+        if (a[i] > 2147483647)
+            a[i] -= RAZD;
+        if (a[i] == 1 && a[i + 1] == 1)
+            a[i] = 0;
+        printf("%lli\n", a[i++]);
+    }
 }

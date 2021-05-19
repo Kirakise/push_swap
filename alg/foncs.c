@@ -1,8 +1,8 @@
 #include "header.h"
 
-void sa(int **a)
+void sa(long long **a)
 {
-    int tmp;
+    long long tmp;
 
     if (!(*a)[1])
         return ;
@@ -11,16 +11,16 @@ void sa(int **a)
     (*a)[1] = tmp;
 }
 
-void ss(int **a, int **b)
+void ss(long long **a, long long **b)
 {
     sa(a);
     sa(b);
 }
 
-void pa(int **from, int **to)
+void pa(long long **from, long long **to)
 {
     int i;
-    int tmp;
+    long long tmp;
 
     if (!from || !**from)
         return ;

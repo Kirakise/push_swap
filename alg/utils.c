@@ -44,7 +44,7 @@ void	*ft_calloc(size_t count, size_t size)
 	return (p);
 }
 
-int checkifsorted(int **a)
+int checkifsorted(long long **a)
 {
     int i;
 

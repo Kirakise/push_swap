@@ -1,6 +1,6 @@
 #include "header.h"
 
-void parsestr(int **a, char *argv, int *zeroflag)
+void parsestr(long long **a, char *argv, int *zeroflag)
 {
     char **s;
     int i;
@@ -28,7 +28,7 @@ void parsestr(int **a, char *argv, int *zeroflag)
     }
 }
 
-void parsearr(int **a, char **argv, int argc, int *zeroflag)
+void parsearr(long long **a, char **argv, int argc, int *zeroflag)
 {
     int i;
 
@@ -50,7 +50,7 @@ void parsearr(int **a, char **argv, int argc, int *zeroflag)
     }
 }
 
-int issorted(int **a)
+int issorted(long long **a)
 {
     int i;
 
@@ -64,7 +64,7 @@ int issorted(int **a)
     return (1);
 }
 
-void parse(int **a, int argc, char **argv)
+void parse(long long **a, int argc, char **argv)
 {
     int i;
     int zeroflag;

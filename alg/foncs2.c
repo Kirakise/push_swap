@@ -1,9 +1,9 @@
 #include "header.h"
 
-void ra(int **a)
+void ra(long long **a)
 {
     int i;
-    int tmp;
+    long long tmp;
 
     tmp = **a;
     i = 0;
@@ -15,16 +15,16 @@ void ra(int **a)
     (*a)[i - 1] = tmp;
 }
 
-void rr(int **a, int **b)
+void rr(long long **a, long long **b)
 {
     ra(a);
     ra(b);
 }
 
-void rra(int **a)
+void rra(long long **a)
 {
     int i;
-    int tmp;
+    long long tmp;
 
     i = 0;
     while ((*a)[i])
@@ -35,7 +35,7 @@ void rra(int **a)
     (*a)[i] = tmp;
 }
 
-void rrr(int **a, int **b)
+void rrr(long long **a, long long **b)
 {
     rra(a);
     rra(b);

@@ -12,7 +12,7 @@ size_t		ft_strlen(const char *s)
 	return (i);
 }
 
-int checknums(int *a, int zeroflag)
+int checknums(long long *a, int zeroflag)
 {
     int i;
     int j;
@@ -36,4 +36,22 @@ int checknums(int *a, int zeroflag)
         i++;
     }
     return (0);
+}
+
+int getmedof(long long **a, int i, int j)
+{
+    int res;
+    int count;
+
+    count = (j - i) / 2;
+    res = getmax(*a);
+    while (i < j && count)
+    {
+        if ((*a)[i] < res)
+        {
+            count--;
+            res = (*a)[i];
+        }
+    }
+    return (res);
 }
