@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/19 14:15:14 by rcaraway          #+#    #+#             */
+/*   Updated: 2021/05/19 14:17:48 by rcaraway         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
 
-size_t		ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
 	size_t					i;
 	const unsigned char		*s1;
@@ -12,46 +24,28 @@ size_t		ft_strlen(const char *s)
 	return (i);
 }
 
-int checknums(long long *a, int zeroflag)
+int	checknums(long long *a, int zeroflag)
 {
-    int i;
-    int j;
+	int	i;
+	int	j;
 
-    i = 0;
-    while (a[i])
-    {
-        j = i + 1;
-        while (a[j])
-        {
-            if (a[i] == 1 && a[j] == 1 && zeroflag)
-            {
-                zeroflag = 0;
-                j++;
-            }
-            else if (a[i] == a[j])
-                return (1);
-            else
-                j++;
-        }
-        i++;
-    }
-    return (0);
-}
-
-int getmedof(long long **a, int i, int j)
-{
-    int res;
-    int count;
-
-    count = (j - i) / 2;
-    res = getmax(*a);
-    while (i < j && count)
-    {
-        if ((*a)[i] < res)
-        {
-            count--;
-            res = (*a)[i];
-        }
-    }
-    return (res);
+	i = 0;
+	while (a[i])
+	{
+		j = i + 1;
+		while (a[j])
+		{
+			if (a[i] == 1 && a[j] == 1 && zeroflag)
+			{
+				zeroflag = 0;
+				j++;
+			}
+			else if (a[i] == a[j])
+				return (1);
+			else
+				j++;
+		}
+		i++;
+	}
+	return (0);
 }

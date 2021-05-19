@@ -8,23 +8,29 @@
 
 int		ft_atoi(const char *str);
 void	*ft_calloc(size_t count, size_t size);
-void pa(long long **from, long long **to);
-void ss(long long **a, long long **b);
-void sa(long long **a);
-void ra(long long **a);
-void rr(long long **a, long long **b);
-void rra(long long **a);
-void rrr(long long **a, long long **b);
-int getmed(long long *a);
-int getmax(long long *a);
-int countitems(long long *a);
-void printmas(long long *a);
-char			**ft_split(char const *str, char c);
-int isnum(char *s);
-void parse(long long **a, int argc, char **argv);
-char    *ft_substr(char const *s, unsigned int start, size_t len);
-size_t  ft_strlen(const char *s);
-int     checknums(long long *a, int zeroflag);
-int getmedof(long long **a, int i, int j);
-void sortmas(long long **a, long long **b, int sorted);
+void	pa(long long **from, long long **to);
+void	ss(long long **a, long long **b);
+void	sa(long long **a);
+void	ra(long long **a);
+void	rr(long long **a, long long **b);
+void	rra(long long **a);
+void	rrr(long long **a, long long **b);
+int		getmed(long long *a);
+int		getmax(long long *a);
+int		countitems(long long *a);
+void	printmas(long long *a);
+char	**ft_split(char const *str, char c);
+int		isnum(char *s);
+void	parse(long long **a, int argc, char **argv);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+size_t	ft_strlen(const char *s);
+int		checknums(long long *a, int zeroflag);
+int		getmedof(long long **a, int i, int j);
+void	sortmas(long long **a, long long **b, int sorted, int i);
+int		countitems2(long long *a);
+void	sortthree(long long **a);
+int		sortthree2(long long **a);
+int		countargs(char **argv);
+int		sortmas2(long long **a, long long **b, int sorted);
+
 #endif
