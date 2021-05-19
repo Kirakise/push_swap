@@ -63,7 +63,8 @@ void	sortmas(long long **a, long long **b, int sorted, int i)
 		while (sorted && count-- && countitems(*a) > 1 && write(1, "rra\n", 4))
 			rra(a);
 	}
-	**b -= RAZD;
+	if (**b)
+		**b -= RAZD;
 	sortthree(a);
 	if (**b)
 		sortmas2(a, b, countitems(*a));
